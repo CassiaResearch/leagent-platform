@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stop losing customer requests across text, email, and DMs</title>
+  <meta name="description" content="A simple way for small service businesses to stop losing quotes, callbacks, and follow-ups across text, WhatsApp, email, forms, and DMs.">
+  <meta property="og:title" content="Stop losing customer requests across text, email, and DMs">
+  <meta property="og:description" content="Built for small crews, not bloated CRM rollouts.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="https://leagent-platform.vercel.app/small-service-request-capture/og.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="theme-color" content="#1F3A5F">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <script defer src="https://cdn.jsdelivr.net/npm/@vercel/analytics@1/dist/web.min.js"></script>
+  <style>
+    :root {
+      --navy: #1F3A5F;
+      --navy-deep: #142740;
+      --sand: #F5F1E8;
+      --sand-deep: #ebe2d2;
+      --amber: #E88B2E;
+      --amber-deep: #c96b10;
+      --ink: #122033;
+      --muted: #5C6675;
+      --line: #D9D4CB;
+      --cream: #fbf8f2;
+      --danger: #A63F21;
+      --success: #1f7a50;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at top left, rgba(232,139,46,0.14), transparent 32%),
+        radial-gradient(circle at top right, rgba(31,58,95,0.09), transparent 28%),
+        #faf7f1;
+    }
+
+    .focus-ring:focus-visible {
+      outline: 3px solid rgba(232, 139, 46, 0.35);
+      outline-offset: 2px;
+    }
+
+    .eyebrow {
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+
+    .hero-kicker {
+      background: rgba(255,255,255,0.78);
+      border: 1px solid rgba(31,58,95,0.10);
+      box-shadow: 0 10px 30px rgba(18,32,51,0.05);
+      backdrop-filter: blur(10px);
+    }
+
+    .hero-panel {
+      background: linear-gradient(180deg, rgba(255,255,255,0.92), rgba(255,255,255,0.86));
+      border: 1px solid rgba(31,58,95,0.10);
+      box-shadow: 0 22px 60px rgba(18,32,51,0.10);
+      backdrop-filter: blur(10px);
+    }
+
+    .cta-button {
+      background: linear-gradient(180deg, #ef993f 0%, var(--amber) 100%);
+      transition: transform 0.18s ease, box-shadow 0.18s ease, filter 0.18s ease;
+      box-shadow: 0 14px 34px rgba(232, 139, 46, 0.28);
+    }
+
+    .cta-button:hover,
+    .cta-button:focus-visible {
+      transform: translateY(-1px);
+      filter: brightness(0.98);
+      box-shadow: 0 18px 42px rgba(232, 139, 46, 0.34);
+    }
+
+    .secondary-button {
+      background: rgba(255,255,255,0.85);
+      border: 1px solid rgba(31,58,95,0.16);
+      transition: transform 0.18s ease, border-color 0.18s ease, background 0.18s ease;
+    }
+
+    .secondary-button:hover,
+    .secondary-button:focus-visible {
+      transform: translateY(-1px);
+      border-color: rgba(31,58,95,0.28);
+      background: #fff;
+    }
+
+    .benefit-chip {
+      background: rgba(255,255,255,0.82);
+      border: 1px solid rgba(31,58,95,0.10);
+      box-shadow: 0 10px 25px rgba(18,32,51,0.05);
+    }
+
+    .signal-card {
+      background: #fff;
+      border: 1px solid rgba(18,32,51,0.08);
+      box-shadow: 0 16px 34px rgba(18,32,51,0.06);
+    }
+
+    .workflow-shell {
+      background: linear-gradient(180deg, rgba(21,39,64,0.98), rgba(31,58,95,0.97));
+      box-shadow: 0 28px 70px rgba(18,32,51,0.22);
+    }
+
+    .message-pill {
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.08);
+      color: #f8fafc;
+    }
+
+    .task-pill {
+      border: 1px solid rgba(232,139,46,0.38);
+      background: linear-gradient(180deg, rgba(255,247,239,1), rgba(255,243,230,1));
+      color: #1f2937;
+      box-shadow: 0 10px 24px rgba(232,139,46,0.10);
+    }
+
+    .section-panel {
+      border: 1px solid rgba(18,32,51,0.08);
+      box-shadow: 0 16px 36px rgba(18,32,51,0.05);
+    }
+
+    .quote-card {
+      background: linear-gradient(180deg, #ffffff, #fbf7f0);
+      border: 1px solid rgba(31,58,95,0.10);
+      box-shadow: 0 16px 34px rgba(18,32,51,0.06);
+    }
+
+    .step-card {
+      background: #fff;
+      border: 1px solid rgba(18,32,51,0.08);
+      box-shadow: 0 16px 34px rgba(18,32,51,0.06);
+    }
+
+    .faq-shell {
+      background: linear-gradient(180deg, rgba(255,255,255,0.98), rgba(248,244,237,0.98));
+      border: 1px solid rgba(31,58,95,0.10);
+      box-shadow: 0 16px 36px rgba(18,32,51,0.06);
+    }
+
+    .waitlist-shell {
+      background: linear-gradient(180deg, #0f1d31 0%, #152740 100%);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.05);
+    }
+
+    .waitlist-form {
+      background: linear-gradient(180deg, rgba(255,255,255,0.98), rgba(250,247,242,0.98));
+      border: 1px solid rgba(255,255,255,0.12);
+      box-shadow: 0 24px 60px rgba(0,0,0,0.20);
+    }
+
+    .field,
+    select,
+    textarea {
+      border: 1px solid rgba(18,32,51,0.14);
+      background: #fff;
+      transition: border-color 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .field:focus,
+    select:focus,
+    textarea:focus {
+      border-color: rgba(232,139,46,0.9);
+      box-shadow: 0 0 0 4px rgba(232,139,46,0.12);
+      outline: none;
+    }
+  </style>
+</head>
+<body class="antialiased">
+  <header class="border-b border-stone-200/80 bg-white/70 backdrop-blur">
+    <div class="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
+      <div>
+        <div class="eyebrow text-xs font-bold text-[color:var(--navy)]">Early access experiment</div>
+        <div class="mt-1 text-lg font-extrabold text-slate-900">Leagent for small service crews</div>
+      </div>
+      <a href="#waitlist" class="secondary-button focus-ring rounded-full px-4 py-2 text-sm font-bold text-slate-800">Get early access</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="overflow-hidden px-6 pb-12 pt-12 md:pb-16 md:pt-16">
+      <div class="mx-auto grid max-w-6xl items-center gap-10 md:grid-cols-[1.05fr_0.95fr] md:gap-12">
+        <div>
+          <div class="hero-kicker inline-flex rounded-full px-4 py-2 text-sm font-semibold text-[color:var(--navy)]">
+            For 2–10 person service businesses juggling texts, WhatsApp, email, forms, and DMs
+          </div>
+
+          <h1 id="hero-headline" class="mt-6 max-w-3xl text-4xl font-black leading-[1.02] text-slate-950 md:text-6xl"></h1>
+
+          <p id="hero-subheadline" class="mt-5 max-w-2xl text-lg leading-8 text-[color:var(--muted)] md:text-xl"></p>
+
+          <div class="mt-8 grid gap-3 sm:grid-cols-3" id="benefit-bullets"></div>
+
+          <div class="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
+            <a href="#waitlist" data-cta-location="hero-primary" class="cta-button focus-ring inline-flex items-center justify-center rounded-2xl px-7 py-4 text-base font-extrabold text-white">Get early access</a>
+            <a href="#how-it-works-section" data-cta-location="hero-secondary" class="secondary-button focus-ring inline-flex items-center justify-center rounded-2xl px-7 py-4 text-base font-bold text-slate-900">See how it works</a>
+          </div>
+
+          <div class="mt-5 flex flex-col gap-3 text-sm text-slate-600 sm:flex-row sm:flex-wrap sm:items-center sm:gap-5">
+            <div id="hero-reassurance" class="font-semibold text-[color:var(--navy)]"></div>
+            <div>Built for small crews, not bloated CRM rollouts.</div>
+            <div>No complicated setup.</div>
+          </div>
+
+          <div class="mt-6 inline-flex rounded-full bg-[color:var(--navy)] px-4 py-2 text-sm font-semibold text-white">
+            <span id="variant-badge"></span>
+          </div>
+        </div>
+
+        <div class="hero-panel rounded-[2rem] p-5 md:p-6">
+          <div class="rounded-[1.75rem] workflow-shell p-5 text-white md:p-6">
+            <div class="flex items-center justify-between gap-4">
+              <div>
+                <div class="eyebrow text-xs font-bold text-slate-300">What breaks today</div>
+                <h2 class="mt-2 text-2xl font-black leading-tight">Requests come in everywhere.</h2>
+              </div>
+              <div class="rounded-full bg-white/10 px-3 py-1.5 text-xs font-bold uppercase tracking-[0.14em] text-slate-200">Too easy to miss</div>
+            </div>
+
+            <div class="mt-6 grid gap-3">
+              <div class="message-pill rounded-2xl p-4">
+                <div class="text-[11px] font-bold uppercase tracking-[0.15em] text-slate-300">Text</div>
+                <div class="mt-2 text-sm leading-6">Can you send me a quote for Friday?</div>
+              </div>
+              <div class="message-pill rounded-2xl p-4">
+                <div class="text-[11px] font-bold uppercase tracking-[0.15em] text-slate-300">WhatsApp</div>
+                <div class="mt-2 text-sm leading-6">Following up — did someone confirm the repair?</div>
+              </div>
+              <div class="message-pill rounded-2xl p-4">
+                <div class="text-[11px] font-bold uppercase tracking-[0.15em] text-slate-300">Email</div>
+                <div class="mt-2 text-sm leading-6">Need invoice resend before end of day.</div>
+              </div>
+            </div>
+
+            <div class="my-5 flex items-center justify-center gap-3 text-amber-300">
+              <div class="h-px flex-1 bg-white/15"></div>
+              <div class="rounded-full bg-white/10 p-2">
+                <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M12 5v14m0 0 6-6m-6 6-6-6"/></svg>
+              </div>
+              <div class="h-px flex-1 bg-white/15"></div>
+            </div>
+
+            <div>
+              <div class="eyebrow text-xs font-bold text-amber-300">What changes</div>
+              <h3 class="mt-2 text-2xl font-black text-white">The next action stays visible.</h3>
+            </div>
+
+            <div class="mt-5 grid gap-3">
+              <div class="task-pill rounded-2xl p-4">
+                <div class="text-[11px] font-bold uppercase tracking-[0.15em] text-amber-800">Follow-up item</div>
+                <div class="mt-2 text-sm font-bold leading-6">Quote for Friday — still needs action</div>
+              </div>
+              <div class="task-pill rounded-2xl p-4">
+                <div class="text-[11px] font-bold uppercase tracking-[0.15em] text-amber-800">Follow-up item</div>
+                <div class="mt-2 text-sm font-bold leading-6">Callback due today</div>
+              </div>
+              <div class="task-pill rounded-2xl p-4">
+                <div class="text-[11px] font-bold uppercase tracking-[0.15em] text-amber-800">Follow-up item</div>
+                <div class="mt-2 text-sm font-bold leading-6">Invoice resend pending</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="border-y border-stone-200 bg-white px-6 py-6">
+      <div class="mx-auto grid max-w-6xl gap-4 md:grid-cols-3">
+        <div class="signal-card rounded-3xl p-5">
+          <div class="eyebrow text-xs font-bold text-[color:var(--amber)]">The old way</div>
+          <p class="mt-3 text-lg font-bold leading-7 text-slate-900">Read the message, get pulled back into the day, forget the follow-up.</p>
+        </div>
+        <div class="signal-card rounded-3xl p-5">
+          <div class="eyebrow text-xs font-bold text-[color:var(--amber)]">The stress</div>
+          <p class="mt-3 text-lg font-bold leading-7 text-slate-900">Quotes, callbacks, and invoice follow-ups sit buried in inboxes and chat threads.</p>
+        </div>
+        <div class="signal-card rounded-3xl p-5">
+          <div class="eyebrow text-xs font-bold text-[color:var(--amber)]">The better way</div>
+          <p class="mt-3 text-lg font-bold leading-7 text-slate-900">Keep the request visible before it slips through the cracks.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="bg-[color:var(--cream)] px-6 py-16">
+      <div class="mx-auto max-w-6xl">
+        <div class="max-w-3xl">
+          <div class="eyebrow text-xs font-bold text-[color:var(--amber)]">Why this page exists</div>
+          <h2 class="mt-3 text-3xl font-black text-slate-950 md:text-5xl">The problem isn’t that small crews need more software.</h2>
+          <p class="mt-5 text-lg leading-8 text-slate-600 md:text-xl">They need one reliable way to stop losing inbound work when customers message however they want and the day gets busy fast.</p>
+        </div>
+
+        <div class="mt-10 grid gap-6 md:grid-cols-3">
+          <div class="quote-card rounded-3xl p-6">
+            <div class="text-4xl font-black text-[color:var(--amber)]">“</div>
+            <p class="mt-3 text-base leading-7 text-slate-700">the number one way I lost track of things is when clients message me on WhatsApp or text... I read it, I'm driving or in the middle of something, and then it's just... gone. Poof. Out of my brain.</p>
+            <p class="mt-4 text-sm font-semibold text-slate-500">Small-business operator research</p>
+          </div>
+          <div class="quote-card rounded-3xl p-6">
+            <div class="text-4xl font-black text-[color:var(--amber)]">“</div>
+            <p class="mt-3 text-base leading-7 text-slate-700">I’ve noticed a lot of people end up with requests scattered across email, texts, forms, and DMs. It creates constant background stress.</p>
+            <p class="mt-4 text-sm font-semibold text-slate-500">Service-business workflow research</p>
+          </div>
+          <div class="quote-card rounded-3xl p-6">
+            <div class="text-4xl font-black text-[color:var(--amber)]">“</div>
+            <p class="mt-3 text-base leading-7 text-slate-700">Some text. Some email. Some call. Some through online services... I have not found an easy way to make sure none get lost in the shuffle.</p>
+            <p class="mt-4 text-sm font-semibold text-slate-500">Service-business intake research</p>
+          </div>
+        </div>
+
+        <div class="section-panel mt-8 rounded-[2rem] bg-white p-7 md:p-8">
+          <div class="grid gap-6 lg:grid-cols-[1fr_0.95fr] lg:items-center">
+            <div>
+              <div class="eyebrow text-xs font-bold text-[color:var(--navy)]">One strong point of view</div>
+              <h3 class="mt-3 text-2xl font-black text-slate-950 md:text-3xl">You shouldn’t need a full field-service rollout just to stop losing inbound work.</h3>
+            </div>
+            <div class="text-base leading-7 text-slate-600">
+              Heavyweight tools can feel expensive and overbuilt for 2–10 person crews. Memory, paper, inbox search, sticky notes, and brittle automations are breaking down too. This page stays narrow on purpose: fix the lost-request problem first.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="how-it-works-section" class="border-t border-stone-200 bg-white px-6 py-16">
+      <div class="mx-auto max-w-6xl">
+        <div class="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+          <div class="max-w-3xl">
+            <div class="eyebrow text-xs font-bold text-[color:var(--amber)]">How it works</div>
+            <h2 class="mt-3 text-3xl font-black text-slate-950 md:text-5xl">A tighter workflow for the exact moment requests usually get lost.</h2>
+            <p id="how-intro" class="mt-4 text-lg leading-8 text-slate-600">One shared shell. One narrow promise under test. Only the message-critical blocks change by variant.</p>
+          </div>
+          <div class="rounded-full bg-[color:var(--sand)] px-4 py-2 text-sm font-bold text-[color:var(--navy)] ring-1 ring-stone-200">Controlled messaging experiment</div>
+        </div>
+
+        <div id="how-it-works" class="mt-10 grid gap-6 md:grid-cols-3"></div>
+      </div>
+    </section>
+
+    <section class="border-t border-stone-200 bg-[color:var(--sand)] px-6 py-16">
+      <div class="mx-auto max-w-6xl">
+        <div class="max-w-3xl">
+          <div class="eyebrow text-xs font-bold text-[color:var(--amber)]">What makes this compelling</div>
+          <h2 class="mt-3 text-3xl font-black text-slate-950 md:text-5xl">The page stays narrow, but the payoff is concrete.</h2>
+        </div>
+        <div class="mt-10 grid gap-6 md:grid-cols-3" id="value-cards"></div>
+      </div>
+    </section>
+
+    <section class="border-t border-stone-200 bg-white px-6 py-16">
+      <div class="mx-auto grid max-w-6xl gap-8 lg:grid-cols-[1.02fr_0.98fr]">
+        <div class="section-panel rounded-[2rem] bg-[color:var(--navy)] p-8 text-white">
+          <div class="eyebrow text-xs font-bold text-slate-300">Why this feels credible</div>
+          <h2 class="mt-3 text-3xl font-black md:text-4xl">Built around the real gap small crews keep describing.</h2>
+          <p class="mt-4 text-lg leading-8 text-slate-200">Customers already text, email, call, fill out forms, and send DMs however they want. The believable first fix is not more enterprise software. It’s a simple way to keep callbacks, quotes, and follow-up visible.</p>
+          <ul class="mt-6 space-y-4 text-base leading-7 text-slate-100">
+            <li class="flex gap-3"><span class="mt-1 text-amber-300">•</span><span>Works with the channels customers already use.</span></li>
+            <li class="flex gap-3"><span class="mt-1 text-amber-300">•</span><span>Light enough for owner-operators and office admins who are already busy.</span></li>
+            <li class="flex gap-3"><span class="mt-1 text-amber-300">•</span><span>Deliberately not positioned as dispatch, payroll, routing, or a full service-business platform.</span></li>
+          </ul>
+        </div>
+
+        <div class="faq-shell rounded-[2rem] p-8 text-slate-900">
+          <div class="eyebrow text-xs font-bold text-[color:var(--navy)]">FAQ</div>
+          <div class="mt-6 space-y-6">
+            <div>
+              <h3 class="text-lg font-extrabold">Do I need to switch how customers contact me?</h3>
+              <p class="mt-2 text-base leading-7 text-slate-600">No. This is built around the texts, WhatsApp messages, emails, forms, and DMs you already get.</p>
+            </div>
+            <div>
+              <h3 class="text-lg font-extrabold">Is this a full CRM or field-service platform?</h3>
+              <p class="mt-2 text-base leading-7 text-slate-600">No. The promise stays narrow on purpose: stop losing inbound work first.</p>
+            </div>
+            <div>
+              <h3 class="text-lg font-extrabold">Who is this built for?</h3>
+              <p class="mt-2 text-base leading-7 text-slate-600">Small service businesses with roughly 2–10 people or 1–3 crews that still run intake through personal inboxes, paper, notes, and lightweight workarounds.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="waitlist" class="waitlist-shell border-t border-slate-800 px-6 py-16 text-white">
+      <div class="mx-auto max-w-6xl">
+        <div class="mx-auto max-w-3xl text-center">
+          <div class="eyebrow text-xs font-bold text-amber-300">Get early access</div>
+          <h2 class="mt-3 text-3xl font-black md:text-5xl">If requests keep getting lost in the shuffle, this is for you.</h2>
+          <p class="mt-4 text-lg leading-8 text-slate-300">Tell us where things usually slip through the cracks. That signal matters more than broad feature requests right now.</p>
+        </div>
+
+        <form id="waitlist-form" class="waitlist-form mx-auto mt-10 max-w-3xl rounded-[2rem] p-6 text-slate-900 md:p-8" action="https://formsubmit.co/your-email@example.com" method="POST" novalidate>
+          <input type="hidden" name="_subject" value="PP-2026-03-09-04 waitlist signup">
+          <input type="hidden" name="_captcha" value="false">
+          <input type="hidden" name="_template" value="table">
+          <input type="hidden" name="variant" id="variant-field" value="A">
+          <input type="text" name="company_website" tabindex="-1" autocomplete="off" class="hidden" aria-hidden="true">
+
+          <div class="grid gap-5 md:grid-cols-2">
+            <div class="md:col-span-2">
+              <label for="email" class="mb-2 block text-sm font-bold text-slate-700">Work email *</label>
+              <input id="email" name="email" type="email" required autocomplete="email" class="field focus-ring w-full rounded-2xl px-4 py-3.5 text-base" placeholder="you@company.com">
+            </div>
+            <div>
+              <label for="trade" class="mb-2 block text-sm font-bold text-slate-700">Business type / trade</label>
+              <input id="trade" name="trade" type="text" class="field focus-ring w-full rounded-2xl px-4 py-3.5 text-base" placeholder="Landscaping, HVAC, cleaning…">
+            </div>
+            <div>
+              <label for="team-size" class="mb-2 block text-sm font-bold text-slate-700">Team size</label>
+              <select id="team-size" name="team_size" class="focus-ring w-full rounded-2xl px-4 py-3.5 text-base">
+                <option value="">Select one</option>
+                <option>1-2 people</option>
+                <option>3-5 people</option>
+                <option>6-10 people</option>
+                <option>10+ people</option>
+              </select>
+            </div>
+            <div>
+              <label for="main-channel" class="mb-2 block text-sm font-bold text-slate-700">Where do requests get lost most?</label>
+              <select id="main-channel" name="main_channel" class="focus-ring w-full rounded-2xl px-4 py-3.5 text-base">
+                <option value="">Select one</option>
+                <option>Text / SMS</option>
+                <option>WhatsApp</option>
+                <option>Email</option>
+                <option>Website forms</option>
+                <option>Instagram / Facebook DMs</option>
+                <option>Somewhere else / multiple places</option>
+              </select>
+            </div>
+            <div>
+              <label for="role" class="mb-2 block text-sm font-bold text-slate-700">Your role</label>
+              <select id="role" name="role" class="focus-ring w-full rounded-2xl px-4 py-3.5 text-base">
+                <option value="">Select one</option>
+                <option>Owner / operator</option>
+                <option>Office admin</option>
+                <option>Crew lead / manager</option>
+                <option>Other</option>
+              </select>
+            </div>
+            <div class="md:col-span-2">
+              <label for="slips" class="mb-2 block text-sm font-bold text-slate-700">What usually slips through the cracks?</label>
+              <textarea id="slips" name="slips_through_cracks" rows="4" class="focus-ring w-full rounded-2xl px-4 py-3.5 text-base" placeholder="Quotes, callbacks, invoice follow-ups, messages I read while driving..."></textarea>
+            </div>
+          </div>
+
+          <div class="mt-6 flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+            <p class="text-sm leading-6 text-slate-500">Low-friction early access. No complicated setup story.</p>
+            <button type="submit" data-cta-location="final-form-submit" class="cta-button focus-ring inline-flex items-center justify-center rounded-2xl px-7 py-4 text-base font-extrabold text-white">Join the waitlist</button>
+          </div>
+          <p id="form-warning" class="mt-5 rounded-2xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-[color:var(--danger)]">This page shell is built, but the form endpoint is still a placeholder. Do not treat submissions as live until a real backend is configured.</p>
+          <p id="form-success" class="mt-4 hidden rounded-2xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-800">Thanks — your request was captured.</p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="border-t border-stone-200 bg-white">
+    <div class="mx-auto flex max-w-6xl flex-col gap-2 px-6 py-8 text-sm text-slate-500 md:flex-row md:items-center md:justify-between">
+      <div>PP-2026-03-09-04 • Controlled messaging test: capture-first triage vs lightweight all-in-one workflow</div>
+      <div>Built for small crews who outgrew paper, notes, and inbox search</div>
+    </div>
+  </footer>
+
+  <script>
+    const variants = {
+      A: {
+        label: 'Variant A — capture-first request triage',
+        headline: 'Never lose a text, WhatsApp, email, or DM lead again',
+        subheadline: 'For small service businesses that get work through texts, email, and DMs — without adding a bloated CRM.',
+        reassurance: 'Best if you want a safety net for buried requests and missed follow-up.',
+        benefits: [
+          'Capture new requests from the channels you already use',
+          'Turn buried messages into clear follow-up tasks',
+          'See what still needs a callback, quote, or reply'
+        ],
+        steps: [
+          {
+            title: 'Customer requests come in through your usual channels',
+            body: 'Texts, WhatsApp messages, emails, forms, and DMs keep flowing the way they already do.'
+          },
+          {
+            title: 'The request becomes a simple follow-up item',
+            body: 'Instead of staying buried in an inbox, the message turns into something clearly visible.'
+          },
+          {
+            title: 'You see what still needs action before it disappears',
+            body: 'Quotes, callbacks, and replies stay in front of you before they slip through the cracks.'
+          }
+        ],
+        values: [
+          {
+            title: 'Catch the message before your memory drops it',
+            body: 'Built for the exact moment you read something while driving, mid-job, or between callbacks — then lose it.'
+          },
+          {
+            title: 'Keep follow-up visible without changing customer behavior',
+            body: 'Customers can still text, email, or DM you. The fix is on your side, not theirs.'
+          },
+          {
+            title: 'Stay out of heavyweight software',
+            body: 'Solve the lost-request problem first instead of dragging a small crew into a full CRM rollout.'
+          }
+        ]
+      },
+      B: {
+        label: 'Variant B — lightweight all-in-one workflow',
+        headline: 'One lightweight workflow for customer requests, callbacks, and next steps',
+        subheadline: 'Keep incoming requests, follow-ups, and basic workflow in one place — without paying for enterprise field-service software.',
+        reassurance: 'Best if you want one simple home for new requests and next actions.',
+        benefits: [
+          'Keep new requests and next steps together in one simple workflow',
+          'Reduce the back-and-forth across texts, email, and notes',
+          'Give your crew a lightweight system without heavyweight software'
+        ],
+        steps: [
+          {
+            title: 'Bring incoming requests into one simple workflow',
+            body: 'Instead of bouncing across inboxes and chat threads, requests land in one lightweight place.'
+          },
+          {
+            title: 'Track who needs a callback, quote, or next step',
+            body: 'The work stays clear without sticky notes, inbox search, or spreadsheets.'
+          },
+          {
+            title: 'Keep work moving without bloated FSM tools',
+            body: 'Small crews get enough structure to stay on top of inbound work without a heavy rollout.'
+          }
+        ],
+        values: [
+          {
+            title: 'Keep requests and next actions in the same flow',
+            body: 'The win is not “more software.” It is less bouncing between messages, notes, and memory.'
+          },
+          {
+            title: 'Give small crews just enough structure',
+            body: 'Useful for teams that outgrew paper and chat threads but still do not want an overbuilt system.'
+          },
+          {
+            title: 'Make the day feel less scattered',
+            body: 'The workflow stays light while still making callbacks, quotes, and follow-up easier to see.'
+          }
+        ]
+      }
+    };
+
+    const params = new URLSearchParams(window.location.search);
+    const requestedVariant = (params.get('variant') || 'a').toUpperCase();
+    const activeVariant = variants[requestedVariant] ? requestedVariant : 'A';
+    const data = variants[activeVariant];
+
+    document.getElementById('hero-headline').textContent = data.headline;
+    document.getElementById('hero-subheadline').textContent = data.subheadline;
+    document.getElementById('hero-reassurance').textContent = data.reassurance;
+    document.getElementById('variant-badge').textContent = data.label;
+    document.getElementById('variant-field').value = activeVariant;
+
+    const benefitsEl = document.getElementById('benefit-bullets');
+    data.benefits.forEach((benefit) => {
+      const item = document.createElement('div');
+      item.className = 'benefit-chip rounded-2xl px-4 py-4 text-sm font-bold leading-6 text-slate-900';
+      item.textContent = benefit;
+      benefitsEl.appendChild(item);
+    });
+
+    const stepsEl = document.getElementById('how-it-works');
+    data.steps.forEach((step, index) => {
+      const card = document.createElement('div');
+      card.className = 'step-card rounded-[1.75rem] p-6';
+      card.innerHTML = `
+        <div class="flex h-12 w-12 items-center justify-center rounded-full bg-[color:var(--navy)] text-lg font-black text-white">${index + 1}</div>
+        <h3 class="mt-5 text-xl font-black leading-7 text-slate-950">${step.title}</h3>
+        <p class="mt-3 text-base leading-7 text-slate-600">${step.body}</p>
+      `;
+      stepsEl.appendChild(card);
+    });
+
+    const valuesEl = document.getElementById('value-cards');
+    data.values.forEach((value) => {
+      const card = document.createElement('div');
+      card.className = 'section-panel rounded-[1.75rem] bg-white p-6';
+      card.innerHTML = `
+        <div class="eyebrow text-xs font-bold text-[color:var(--amber)]">Benefit</div>
+        <h3 class="mt-3 text-2xl font-black leading-8 text-slate-950">${value.title}</h3>
+        <p class="mt-3 text-base leading-7 text-slate-600">${value.body}</p>
+      `;
+      valuesEl.appendChild(card);
+    });
+
+    function trackEvent(eventName, params) {
+      if (typeof window.gtag === 'function') {
+        window.gtag('event', eventName, params);
+      }
+      if (window.va && typeof window.va.track === 'function') {
+        window.va.track(eventName, params);
+      }
+      console.log('track', eventName, params);
+    }
+
+    document.querySelectorAll('[data-cta-location]').forEach((el) => {
+      el.addEventListener('click', () => {
+        trackEvent('cta_click', {
+          cta_location: el.dataset.ctaLocation,
+          variant: activeVariant,
+          page_id: 'PP-2026-03-09-04'
+        });
+      });
+    });
+
+    const scrollMarks = [25, 50, 75, 100];
+    const firedScrollMarks = new Set();
+    window.addEventListener('scroll', () => {
+      const doc = document.documentElement;
+      const maxScroll = doc.scrollHeight - window.innerHeight;
+      if (maxScroll <= 0) return;
+      const percent = Math.round((window.scrollY / maxScroll) * 100);
+      scrollMarks.forEach((mark) => {
+        if (percent >= mark && !firedScrollMarks.has(mark)) {
+          firedScrollMarks.add(mark);
+          trackEvent('scroll_depth', {
+            percent_scrolled: mark,
+            variant: activeVariant,
+            page_id: 'PP-2026-03-09-04'
+          });
+        }
+      });
+    }, { passive: true });
+
+    const form = document.getElementById('waitlist-form');
+    form.addEventListener('submit', (event) => {
+      trackEvent('form_submit', {
+        form_id: 'waitlist-form',
+        variant: activeVariant,
+        page_id: 'PP-2026-03-09-04'
+      });
+
+      const action = form.getAttribute('action') || '';
+      if (action.includes('your-email@example.com')) {
+        event.preventDefault();
+        document.getElementById('form-warning').classList.remove('hidden');
+      }
+    });
+  </script>
+</body>
+</html>
