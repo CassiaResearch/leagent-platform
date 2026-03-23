@@ -4,6 +4,8 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { CheckCircle2, LoaderCircle, MessageSquare, Shield, Zap } from 'lucide-react';
 
+const APOS = '\u0027';
+
 /* ─── variant selection ─── */
 function useVariant() {
   const [variant, setVariant] = useState(null);
