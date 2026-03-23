@@ -1,5 +1,12 @@
-import { cn } from '../../lib/utils';
-
-export function Select({ className = '', children, ...props }) {
-  return <select className={cn('ui-control ui-select', className)} {...props}>{children}</select>;
-}
+export {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectScrollDownButton,
+  SelectScrollUpButton,
+  SelectSeparator,
+  SelectTrigger,
+  SelectValue,
+} from './select.jsx';
